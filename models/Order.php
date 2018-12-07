@@ -25,13 +25,4 @@ class Order extends Model
         array_push($this->order, $product);
     }
 
-    public function addToTable(): bool
-    {
-        // TODO: Implement addToTable() method.
-    }
-
-    public function updateItem(int $id): bool
-    {
-        // TODO: Implement updateItem() method.
-    }
 }

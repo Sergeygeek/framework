@@ -11,28 +11,45 @@ namespace app\models;
 
 class Product extends Model
 {
-    public $id;
-    public $name;
-    public $description;
-    public $price;
-    public $customer_id;
+    protected $id;
+    protected $name;
+    protected $description;
+    protected $price;
+    protected $customer_id;
+    protected $category_id;
 
-    public function __construct($tableName, $name, $description, $price, $customer_id)
+    public function getTableName()  : string
     {
-        parent::__construct($tableName);
-        $this->name = $name;
-        $this->description = $description;
-        $this->price = $price;
-        $this->customer_id = $customer_id;
+        return "products";
     }
 
-    public function addToTable(): bool
+    public function __construct()
     {
-        // TODO: Implement addToTable() method.
+        parent::__construct();
     }
 
-    public function updateItem(int $id): bool
+    public function setParams()
     {
-        // TODO: Implement updateItem() method.
+//        $this->id = $id;
+//        $this->name = $name;
+//        $this->description = $description;
+//        $this->price = $price;
+//        $this->customer_id = $customer_id;
+//        $this->category_id = $category_id;
+    }
+
+    public function prepareParams(){
+        return $this->params = [
+            ':name' => $this->name,
+            ':description' => $this->description,
+            ':price' => $this->price,
+            ':customer_id' => $this->customer_id,
+            ':category_id' => $this->category_id
+        ];
+    }
+
+    public function getColumns()
+    {
+        return 'name, description, price, customer_id, category_id';
     }
 }

@@ -11,9 +11,8 @@ namespace app\interfaces;
 
 interface IModel
 {
-    public function setTableName(string $name);
 
-    public function getOne(int $id) : array;
+    public function getOne(int $id);
 
     public function getAll() : array;
 
@@ -21,7 +20,7 @@ interface IModel
 
     public function deleteFromTable(int $id) : bool;
 
-    public function addToTable() : bool;
+    public function addToTable(array $params) : bool;
 
-    public function updateItem(int $id) : bool;
+    public function updateItem(int $id, $column, $value) : bool;
 }
