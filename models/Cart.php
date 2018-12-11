@@ -9,7 +9,7 @@
 namespace app\models;
 
 
-class Cart extends Model
+class Cart extends Record
 {
     protected $user_id;
     protected $order_id;
@@ -18,6 +18,11 @@ class Cart extends Model
     public function addToCart(Product $product)
     {
         array_push($this->cart, $product);
+    }
+
+    public static function getTableName() : string
+    {
+        return 'cart';
     }
 
     public function addToTable(): bool

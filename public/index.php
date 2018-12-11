@@ -4,7 +4,13 @@ include ROOT_DIR . "services/AutoLoader.php";
 
 spl_autoload_register([new \app\services\AutoLoader(), 'loadClass']);
 
-$product = new \app\models\Product();
+$controllerName = $_GET['c']?: DEFAULT_CONTROLLER;
+$actionName = $_GET['a'];
 
-//var_dump($product->updateItem(4, ['price', ], 11000));
-//var_dump($product->addToTable(['Горка', 'Самая быстрая горка', 16000, 1, 2]));
+$controllerClass = CONTROLLERS_NAMESPACE . ucfirst($controllerName) . "Controller";
+
+if(class_exists($controllerClass)){
+    /** @var \app\controllers\Controller $controller */
+    $controller = new $controllerClass;
+    $controller->runAction($actionName);
+}

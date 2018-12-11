@@ -35,7 +35,7 @@ class Db
                 $this->config['password']
             );
 
-            $this->conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
+            $this->conn->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
         }
         return $this->conn;
     }
@@ -61,6 +61,20 @@ class Db
     public function queryAll($sql, $params = [])
     {
         return $this->query($sql, $params)->fetchAll();
+    }
+
+    public function queryAllObjects($sql, $class, $params = [])
+    {
+        $smtp = $this->query($sql, $params);
+        $smtp->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
+        return $smtp->fetchAll();
+    }
+
+    public function queryObject($sql, $class, $params = [])
+    {
+        $smtp = $this->query($sql, $params);
+        $smtp->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
+        return $smtp->fetch();
     }
 
     private function prepareDsnString()

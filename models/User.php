@@ -9,28 +9,31 @@
 namespace app\models;
 
 
-class User extends Model
+class User extends Record
 {
     protected $id;
     protected $name;
+    protected $surname;
     protected $login;
     protected $password;
 
-    public function __construct($tableName, $name, $login, $password)
+    public function __construct($id = null, $name = null, $surname = null, $login = null, $password = null)
     {
-        parent::__construct($tableName);
+        parent::__construct();
+        $this->id = $id;
         $this->name = $name;
+        $this->surname = $surname;
         $this->login = $login;
         $this->password = $password;
     }
 
-    public function addToTable(): bool
+    public static function getTableName()  : string
     {
-        // TODO: Implement addToTable() method.
+        return "users";
     }
 
-    public function updateItem(int $id): bool
+    public function getName()
     {
-        // TODO: Implement updateItem() method.
+        return $this->name;
     }
 }

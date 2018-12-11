@@ -9,7 +9,7 @@
 namespace app\models;
 
 
-class Product extends Model
+class Product extends Record
 {
     protected $id;
     protected $name;
@@ -18,34 +18,38 @@ class Product extends Model
     protected $customer_id;
     protected $category_id;
 
-    public function getTableName()  : string
+    public function __construct($id = null, $name = null, $description = null,
+                                $price = null, $customer_id = null, $category_id = null)
+    {
+        parent::__construct();
+        $this->id = $id;
+        $this->name = $name;
+        $this->description = $description;
+        $this->price = $price;
+        $this->customer_id = $customer_id;
+        $this->category_id = $category_id;
+
+    }
+
+    public static function getTableName()  : string
     {
         return "products";
     }
 
-    public function __construct()
+    public function getName()
     {
-        parent::__construct();
+        return $this->name;
     }
 
-    public function setParams()
+    public function getDescription()
     {
-//        $this->id = $id;
-//        $this->name = $name;
-//        $this->description = $description;
-//        $this->price = $price;
-//        $this->customer_id = $customer_id;
-//        $this->category_id = $category_id;
+        return $this->description;
     }
 
-    public function prepareParams(){
-        return $this->params = [
-            ':name' => $this->name,
-            ':description' => $this->description,
-            ':price' => $this->price,
-            ':customer_id' => $this->customer_id,
-            ':category_id' => $this->category_id
-        ];
+    public function setPrice($price)
+    {
+        $this->setInitParams();
+        $this->price = $price;
     }
 
     public function getColumns()
