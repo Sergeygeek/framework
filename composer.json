@@ -1,0 +1,17 @@
+{
+    "name": "user/dz2php2",
+    "authors": [
+        {
+            "name": "Sergeygeek",
+            "email": "sukhorukov1986@yandex.ru"
+        }
+    ],
+    "require": {
+        "twig/twig": "^2.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": ""
+        }
+    }
+}

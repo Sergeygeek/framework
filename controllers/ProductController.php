@@ -23,8 +23,6 @@ class ProductController extends Controller
     {
         $id = $_GET['id'];
         $product = Product::getOne($id);
-        $product->setPrice(1000);
-        $product->update();
         echo $this->render('card', ['product' => $product]);
     }
 }

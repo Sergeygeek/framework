@@ -13,7 +13,7 @@
 <div class="header">Это хедер
     <a href="/basket/index"> Корзина</a>
 </div>
-<div class="content"><?=$content?></div>
+<div class="content">{{ include('catalog.php') }}</div>
 <div class="footer">Это футер</div>
 </body>
 </html>

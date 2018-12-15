@@ -31,6 +31,18 @@ class Product extends Record
 
     }
 
+    public function __get($name)
+    {
+        if (property_exists($this, $name)) {
+            return $this->name;
+        }
+    }
+
+    public function __isset($name)
+    {
+        return isset($this->name);
+    }
+
     public static function getTableName()  : string
     {
         return "products";
@@ -50,10 +62,5 @@ class Product extends Record
     {
         $this->setInitParams();
         $this->price = $price;
-    }
-
-    public function getColumns()
-    {
-        return 'name, description, price, customer_id, category_id';
     }
 }
