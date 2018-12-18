@@ -21,14 +21,12 @@ class Product extends Record
     public function __construct($id = null, $name = null, $description = null,
                                 $price = null, $customer_id = null, $category_id = null)
     {
-        parent::__construct();
         $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->price = $price;
         $this->customer_id = $customer_id;
         $this->category_id = $category_id;
-
     }
 
     public function __get($name)
@@ -43,11 +41,6 @@ class Product extends Record
         return isset($this->name);
     }
 
-    public static function getTableName()  : string
-    {
-        return "products";
-    }
-
     public function getName()
     {
         return $this->name;
@@ -60,7 +53,10 @@ class Product extends Record
 
     public function setPrice($price)
     {
-        $this->setInitParams();
         $this->price = $price;
+    }
+    public function getPrice()
+    {
+        return $this->price;
     }
 }

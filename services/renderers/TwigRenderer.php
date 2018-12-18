@@ -11,20 +11,18 @@ namespace app\services\renderers;
 
 class TwigRenderer implements IRenderer
 {
-    protected $loader;
-    protected $twig;
+    protected $templater;
 
 
-    public function __construct($loader, $twig)
+    public function __construct()
     {
-        $this->loader = $loader;
-        $this->twig = $twig;
+        $loader = new \Twig_Loader_Filesystem(TEMPLATES_DIR . "twig");
+        $this->templater = new \Twig_Environment($loader);
     }
 
     public function render($template, $params = [])
     {
-        $template .= ".php";
-        $template = $this->twig->load($template, $params = []);
-        echo $template->render();
+        $template .= ".twig";
+        echo $template->render($template, $params);
     }
 }
