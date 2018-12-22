@@ -15,5 +15,6 @@
 </div>
 <div class="content"><?=$content?></div>
 <div class="footer">Это футер</div>
+<script src="/js/ajax.js"></script>
 </body>
 </html>

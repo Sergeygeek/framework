@@ -23,13 +23,13 @@ class Session
         return $_SESSION[$key];
     }
 
-    public function set($key, $value)
+    public function set($name, $key, $value)
     {
-        return $_SESSION[$key] = $value;
+        return $_SESSION[$name][$key] = (int) $value;
     }
 
-    public function add($key, $value)
+    public function add($name, $key, $value)
     {
-        return $_SESSION[$key] .= $value;
+        return $_SESSION[$name][$key] .= (int) $value;
     }
 }

@@ -21,11 +21,12 @@ class Cart extends Record
 
     public function addToCart($productId, $productQty)
     {
-        $session = App::call()->session('basket');
-        if ($session->get($productId)){
-            $session->add($productId, $productQty);
+        $session = App::call()->session;
+        $basket = $session->getAll('basket');
+        if ($basket[$productId]){
+            $session->add('basket', $productId, $productQty);
         } else {
-            $session->set($productId, $productQty);
+            $session->set('basket', $productId, $productQty);
         }
     }
 
@@ -44,7 +45,7 @@ class Cart extends Record
             foreach ($products as $product){
                 $basket[] = [
                     'product' => $product,
-                    'count' => $session->get($product->getId())
+                    'count' => $session->getAll('basket')[$product->getId()]
                 ];
             }
         }

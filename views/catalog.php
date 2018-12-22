@@ -5,7 +5,7 @@
         <p><a href=""><?=$product->getName()?></a></p>
         <p><?=$product->getDescription()?></p>
         <p>Цена: <?=$product->getPrice()?> руб.</p>
-        <a href="?page=index&action=addToCart&goodId={$row['id']}">Добавить в корзину</a>
+        <a data-id="<?=$product->getId()?>" id="add_to_cart" href="#">Добавить в корзину</a>
     </div>
     <h1></h1>
     <p></p>
