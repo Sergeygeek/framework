@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 11 2018 г., 14:33
+-- Время создания: Дек 22 2018 г., 05:22
 -- Версия сервера: 5.7.23
 -- Версия PHP: 7.2.10
 
@@ -21,6 +21,33 @@ SET time_zone = "+00:00";
 --
 -- База данных: `monenfant`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `cart`
+--
+
+CREATE TABLE `cart` (
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `qty` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `order`
+--
+
+CREATE TABLE `order` (
+  `id` int(11) NOT NULL,
+  `login` varchar(50) DEFAULT NULL,
+  `user_name` varchar(50) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `status` int(11) DEFAULT NULL COMMENT '0-не оплачен\n1-оплачен\n2-отправлен\n3-доставлен'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -75,6 +102,19 @@ INSERT INTO `users` (`id`, `name`, `surname`, `login`, `password`, `role`) VALUE
 --
 
 --
+-- Индексы таблицы `cart`
+--
+ALTER TABLE `cart`
+  ADD KEY `fk_cart_order` (`order_id`),
+  ADD KEY `fk_cart_product` (`product_id`);
+
+--
+-- Индексы таблицы `order`
+--
+ALTER TABLE `order`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `products`
 --
 ALTER TABLE `products`
@@ -91,6 +131,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT для таблицы `order`
+--
+ALTER TABLE `order`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT для таблицы `products`
 --
 ALTER TABLE `products`
@@ -101,6 +147,17 @@ ALTER TABLE `products`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `cart`
+--
+ALTER TABLE `cart`
+  ADD CONSTRAINT `fk_cart_order` FOREIGN KEY (`order_id`) REFERENCES `order` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_cart_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
