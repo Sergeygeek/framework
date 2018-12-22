@@ -13,30 +13,23 @@ class Session
 {
     protected $sessionName;
 
-    public function __construct($sessionName)
+    public function __construct()
     {
         session_start();
-        $this->sessionName = $sessionName;
-        $_SESSION[$sessionName];
     }
 
-    public function get($key)
+    public function getAll($key)
     {
-        return $_SESSION[$this->sessionName][$key];
-    }
-
-    public function getAll()
-    {
-        return $_SESSION[$this->sessionName];
+        return $_SESSION[$key];
     }
 
     public function set($key, $value)
     {
-        return $_SESSION[$this->sessionName][$key] = $value;
+        return $_SESSION[$key] = $value;
     }
 
     public function add($key, $value)
     {
-        return $_SESSION[$this->sessionName][$key] .= $value;
+        return $_SESSION[$key] .= $value;
     }
 }

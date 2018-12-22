@@ -37,9 +37,9 @@ class Cart extends Record
     public function getAll()
     {
         $basket = [];
-        $session = App::call()->session();
-        if(!empty($session->getAll())){
-            $productsIds = array_keys($session->getAll());
+        $session = App::call()->session;
+        if(!empty($session->getAll('basket'))){
+            $productsIds = array_keys($session->getAll('basket'));
             $products = (new ProductRepo())->getProductsByIds($productsIds);
             foreach ($products as $product){
                 $basket[] = [
