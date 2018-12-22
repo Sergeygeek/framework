@@ -1,6 +1,27 @@
 <?php
-define('ROOT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/../');
-define('TEMPLATES_DIR', ROOT_DIR . "views/");
-define('DEFAULT_CONTROLLER', "product");
-define('CONTROLLERS_NAMESPACE', "app\controllers\\");
-define('TWIG_CACHE_DIR', ROOT_DIR . "cache");
+return [
+    'rootDir' => __DIR__ . "/../",
+    'templatesDir' => __DIR__ . "/../views/",
+    'defaultController' => "product",
+    'controllerNamespace' => "app\\controllers\\",
+    'components' => [
+        'db' => [
+            'class' => \app\services\Db::class,
+            'driver' => 'mysql',
+            'host' => 'localhost',
+            'login' => 'root',
+            'password' => '',
+            'database' => 'monenfant',
+            'charset' => 'utf8'
+        ],
+        'request' => [
+            'class' => \app\services\Request::class
+        ],
+        'renderer' => [
+            'class' => \app\services\renderers\TemplateRenderer::class
+        ],
+        'session' => [
+            'class' => \app\services\Session::class
+        ]
+    ]
+];

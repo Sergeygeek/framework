@@ -11,14 +11,13 @@ namespace app\models;
 
 class Order extends Record
 {
-    protected $user_id;
     protected $order;
 
-    public function __construct($tableName, $id)
+    public static function getTableName() : string
     {
-        parent::__construct($tableName);
-        $this->user_id = $id;
+        return 'cart';
     }
+
 
     public function addToOrder(Product $product)
     {

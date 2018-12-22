@@ -23,4 +23,9 @@ class ProductRepo extends Repo
         return Product::class;
     }
 
+    public function getProductsByIds(array $ids){
+        $in = implode(", ", $ids);
+        return $this->find("SELECT * FROM products WHERE id IN ({$in})", []);
+    }
+
 }

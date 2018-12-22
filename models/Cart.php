@@ -9,15 +9,24 @@
 namespace app\models;
 
 
+use app\base\App;
+use app\models\repos\ProductRepo;
+use app\services\Session;
+
 class Cart extends Record
 {
     protected $user_id;
     protected $order_id;
     protected $cart;
 
-    public function addToCart(Product $product)
+    public function addToCart($productId, $productQty)
     {
-        array_push($this->cart, $product);
+        $session = App::call()->session('basket');
+        if ($session->get($productId)){
+            $session->add($productId, $productQty);
+        } else {
+            $session->set($productId, $productQty);
+        }
     }
 
     public static function getTableName() : string
@@ -25,9 +34,26 @@ class Cart extends Record
         return 'cart';
     }
 
-    public function addToTable(): bool
+    public function getAll()
     {
-        // TODO: Implement addToTable() method.
+        $basket = [];
+        $session = App::call()->session();
+        if(!empty($session->getAll())){
+            $productsIds = array_keys($session->getAll());
+            $products = (new ProductRepo())->getProductsByIds($productsIds);
+            foreach ($products as $product){
+                $basket[] = [
+                    'product' => $product,
+                    'count' => $session->get($product->getId())
+                ];
+            }
+        }
+        return $basket;
+    }
+
+    public function addToTable($productId, $productQty): bool
+    {
+        // TODO: Implement updateItem() method.
     }
 
     public function updateItem(int $id): bool

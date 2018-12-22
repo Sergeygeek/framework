@@ -8,7 +8,7 @@
 
 namespace app\controllers;
 
-use app\models\Product;
+use app\base\App;
 use app\models\repos\ProductRepo;
 use app\services\Request;
 
@@ -23,7 +23,7 @@ class ProductController extends Controller
 
     public function actionCard()
     {
-        $id = (new Request())->getParams()['id'];
+        $id = App::call()->request->getParams()['id'];
         $product = (new ProductRepo())->getOne($id);
         echo $this->render('card', ['product' => $product]);
     }

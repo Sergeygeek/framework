@@ -8,6 +8,7 @@
 
 namespace app\models\repos;
 
+use app\base\App;
 use app\interfaces\IRepo;
 use app\models\Record;
 use app\services\Db;
@@ -17,9 +18,6 @@ abstract class Repo implements IRepo
 {
     protected $db;
     protected $tableName;
-    protected $params;
-    protected $column;
-    protected $initParams;
 
     public function __construct()
     {
@@ -28,54 +26,28 @@ abstract class Repo implements IRepo
 
     public function getDb()
     {
-        return Db::getInstance();
+        return App::call()->db;
     }
 
-    public function setInitParams()
-    {
-        $this->initParams = get_object_vars($this);
-        foreach ($this->initParams as $param => $value){
-            if(is_object($value)){
-                unset($this->initParams[$param]);
-            }
-        }
-    }
-
-    public function getParams()
-    {
-        $params = get_object_vars($this);
-        foreach ($params as $param => $value){
-            if(is_object($value)){
-                unset($params[$param]);
-            }
-        }
-        return $params;
-    }
-
-    public function getColumns()
-    {
-        return $this->column;
-    }
-
-    public function getOne(int $id)
+    public function getOne(int $id): Record
     {
         $tableName = static::getTableName();
         $sql = "SELECT * FROM {$tableName} WHERE id = :id";
-        return $this->db->queryObject($sql,  $this->getEntityClass(), [':id' => $id]);
+        return $this->find($sql, [':id' => $id])[0];
     }
 
-    public function getAll()
+    public function getAll(): array
     {
         $tableName = static::getTableName();
         $sql = "SELECT * FROM {$tableName}";
-        return $this->db->queryAllObjects($sql, $this->getEntityClass());
+        return $this->find($sql);
     }
 
     public function delete(Record $record)
     {
-        $tableName = $this->getTableName();
+        $tableName = static::getTableName();
         $sql = "DELETE FROM {$tableName} WHERE id = :id";
-        return $this->db->execute($sql, [":id" => $this->id]);
+        return $this->db->execute($sql, [":id" => $record->id]);
     }
 
     public function insert(Record $record): bool
@@ -114,4 +86,8 @@ abstract class Repo implements IRepo
         }
     }
 
+    public function find($sql, $params = [])
+    {
+        return $this->db->queryObject($sql, $this->getEntityClass(), $params);
+    }
 }

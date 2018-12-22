@@ -59,4 +59,9 @@ class Product extends Record
     {
         return $this->price;
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }

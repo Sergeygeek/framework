@@ -14,17 +14,23 @@ use app\traits\TSingletone;
 class Db
 {
     use TSingletone;
+    private $config;
 
-    private $config = [
-        'driver' => 'mysql',
-        'host' => 'localhost',
-        'login' => 'root',
-        'password' => '',
-        'database' => 'monenfant',
-        'charset' => 'utf8'
-    ];
-
+    /** @var \PDO */
     private $conn = null;
+
+    public function __construct($driver, $host, $login, $password, $database, $charset)
+    {
+        $this->config = [
+            'driver' => $driver,
+            'host' => $host,
+            'login' => $login,
+            'password' => $password,
+            'database' => $database,
+            'charset' => $charset
+        ];
+    }
+
 
     private function getConnection()
     {
@@ -74,7 +80,7 @@ class Db
     {
         $smtp = $this->query($sql, $params);
         $smtp->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
-        return $smtp->fetch();
+        return $smtp->fetchAll();
     }
 
     private function prepareDsnString()

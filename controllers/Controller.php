@@ -33,7 +33,7 @@ class Controller
         if (method_exists($this, $method)) {
             $this->$method();
         } else {
-            echo "404";
+            throw new \Exception("Страница не найдена, мы работаем над этой ошибкой");
         }
     }
 
