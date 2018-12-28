@@ -24,9 +24,9 @@ class Cart extends Record
         $session = App::call()->session;
         $basket = $session->getAll('basket');
         if ($basket[$productId]){
-            $session->add('basket', $productId, $productQty);
+            $session->addToArrKey('basket', $productId, $productQty);
         } else {
-            $session->set('basket', $productId, $productQty);
+            $session->setArrKey('basket', $productId, $productQty);
         }
     }
 

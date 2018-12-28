@@ -11,8 +11,6 @@ namespace app\services;
 
 class Session
 {
-    protected $sessionName;
-
     public function __construct()
     {
         session_start();
@@ -23,13 +21,23 @@ class Session
         return $_SESSION[$key];
     }
 
-    public function set($name, $key, $value)
+    public function setArrKey($name, $key, $value)
     {
-        return $_SESSION[$name][$key] = (int) $value;
+        return $_SESSION[$name][$key] = $value;
     }
 
-    public function add($name, $key, $value)
+    public function setKey($key, $value)
     {
-        return $_SESSION[$name][$key] .= (int) $value;
+        return $_SESSION[$key] = $value;
+    }
+
+    public function addToArrKey($name, $key, $value)
+    {
+        return $_SESSION[$name][$key] += $value;
+    }
+
+    public function addToKey($key, $value)
+    {
+        return $_SESSION[$key] += $value;
     }
 }

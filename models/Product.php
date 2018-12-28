@@ -14,7 +14,7 @@ class Product extends Record
     protected $id;
     protected $name;
     protected $description;
-    protected $price;
+    public $price;
     protected $customer_id;
     protected $category_id;
 
@@ -63,5 +63,11 @@ class Product extends Record
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getPriceWithDiscount(Discount $discountStrategy)
+    {
+        $discount = $discountStrategy->getBaseDiscount();
+        return $this->price - $discount;
     }
 }

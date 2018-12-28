@@ -17,6 +17,7 @@ class BasketController extends Controller
 {
     public function actionIndex()
     {
+        $this->layout = 'cart';
         echo $this->render('cart', ['basket' => (new Cart())->getAll()]);
     }
 

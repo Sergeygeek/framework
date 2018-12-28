@@ -10,9 +10,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
+<div class="header">Это хедер
+    <a href="/basket/index"> Корзина</a>
+</div>
 <div class="content">
-        <?=$content?>
-</div
+    <?=$content?>
+</div>
 <div class="footer">Это футер</div>
 <script src="/js/ajax.js"></script>
 </body>

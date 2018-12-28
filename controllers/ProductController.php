@@ -17,8 +17,16 @@ class ProductController extends Controller
 {
     public function actionIndex()
     {
+        $session = App::call()->session;
+        $is_loged = false;
+        if($session->getAll('user_id')){
+            $is_loged = true;
+        }
         $products = (new ProductRepo())->getAll();
-        echo $this->render('catalog', ['products' => $products]);
+        $catalog = $this->renderTemplate('catalog', ['products' => $products]);
+        $header = $this->renderTemplate('header', ['is_loged' => $is_loged]);
+        echo $this->render('content', ['catalog' => $catalog,
+                                                'header' => $header]);
     }
 
     public function actionCard()

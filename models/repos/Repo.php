@@ -54,19 +54,16 @@ abstract class Repo implements IRepo
     {
         $params = [];
         $columns = [];
-
-        foreach ($this as $key => $value) {
+        foreach ($record as $key => $value) {
             if($key == 'db'){
                 continue;
             }
-
             $params[":{$key}"] = $value;
             $columns[] = "`$key`";
         }
 
         $columns = implode(", ", $columns);
         $placeholders = implode(", ", array_keys($params));
-
         $tableName = static::getTableName();
         $sql = "INSERT INTO {$tableName} ({$columns}) VALUES ({$placeholders})";
         return $this->db->execute($sql, $params);

@@ -11,16 +11,14 @@ namespace app\models;
 
 class User extends Record
 {
-    protected $id;
-    protected $name;
-    protected $surname;
-    protected $login;
-    protected $password;
+    public $id;
+    public $name;
+    public $surname;
+    public $login;
+    public $password;
 
-    public function __construct($id = null, $name = null, $surname = null, $login = null, $password = null)
+    public function __construct($name = null, $surname = null, $login = null, $password = null)
     {
-        parent::__construct();
-        $this->id = $id;
         $this->name = $name;
         $this->surname = $surname;
         $this->login = $login;
@@ -35,5 +33,10 @@ class User extends Record
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getOne()
+    {
+
     }
 }

@@ -49,6 +49,11 @@ class Request
         return $this->params;
     }
 
+    public function getParam($key)
+    {
+        return $this->params[$key];
+    }
+
     public function getRequestMethod()
     {
         return $this->requestMethod;
